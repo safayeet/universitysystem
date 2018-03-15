@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 9, 2018, 8:36:27 AM
+    Author     : Israt
+*/
+
+body{
+    width:100%;
+    margin:0px;
+    padding: 0px;
+    height: auto;
+    min-height: 98vh;
+    /*background-color: rgba(0,0,0,.6);*/
+}
+.navbar,.navbar-inverse{border-radius: 0px;box-shadow: 0px 1px 5px #bbb;}
+
+.item > img{margin: 0px auto !important;}
+
+.post{
+    text-align: center;
+}
+.post p{
+    text-align: justify;
+}
+.post a:last-child{
+    float: right;
+}
+
