@@ -1,7 +1,7 @@
 <?php
 require '../dbcon.php';
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
 <br><br>
@@ -15,14 +15,14 @@ if (!$conn) {
 
     <?php
     $query = "select * from departments;";
-    $result = mysqli_query($conn, $query);
-    while ($row = mysqli_fetch_array($result)) {
+    $result = $conn->query($query);
+    while ($row =$result->fetch_assoc()) {
         ?>
         <tr>
-            <td><?php echo $row[0]; ?></td>
-            <td><?php echo $row[1]; ?></td>
-            <td><?php echo $row[2]; ?></td>
-            <td><?php echo $row[3]; ?></td>
+            <td><?php echo $row['deptid']; ?></td>
+            <td><?php echo $row['deptname']; ?></td>
+            <td><?php echo $row['totalcourses']; ?></td>
+            <td><?php echo $row['totalcredithour']; ?></td>
         </tr>
 
         <?php

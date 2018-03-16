@@ -16,8 +16,8 @@
 
     <?php
     require '../dbcon.php';
-    if ($conn -> connect_error) {
-        die("Connection failed: " . $conn -> connect_error);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
     $query = "select * from studentdetails;";
@@ -25,16 +25,15 @@
     while ($row = $result->fetch_assoc()) {
         ?>
         <tr>
-            <td><?php echo $row[0]; ?></td>
-            <td><?php echo $row[1]; ?></td>
-            <td><?php echo $row[2]; ?></td>
-            <td><?php echo $row[3]; ?></td>
-            <td><?php echo $row[4]; ?></td>
-            <td><?php echo $row[5]; ?></td>
-            <td><?php echo $row[6]; ?></td>
-            <td><?php echo $row[7]; ?></td> 
-            <td><?php echo $row[8]; ?></td> 
-
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['password']; ?></td>
+            <td><?php echo $row['name']; ?></td>
+            <td><?php echo $row['location']; ?></td>
+            <td><?php echo $row['contact']; ?></td>
+            <td><?php echo $row['admissionyear']; ?></td>
+            <td><?php echo $row['admissionsemester']; ?></td>
+            <td><?php echo $row['currentsemester']; ?></td> 
+            <td><?php echo $row['cgpa']; ?></td> 
         </tr>
 
         <?php

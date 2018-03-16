@@ -1,7 +1,19 @@
 <h1 class="text-center">Add / EDIT Course Details</h1>
 
-<?php if (!isset($_SESSION)) session_start();$_SESSION['link'] = "addcourse.php" ?>"
-. "
+<?php
+if (!isset($_SESSION))
+    session_start();
+$_SESSION['link'] = "addcourse.php";
+
+
+require '../dbcon.php';
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$query = "select deptid,deptname from departments;";
+$result = $conn->query($query);
+?>
 <div class="container-fluid">
 
     <form class="form-horizontal" action=" " method="post"  id="contact_form" enctype="multipart/form-data">
@@ -12,7 +24,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
-                        <input  name="courseid" placeholder="Course ID" class="form-control"  type="text">
+                        <input  name="id" placeholder="Course ID" class="form-control"  type="text">
                     </div>
                 </div>
             </div>
@@ -22,11 +34,10 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
-                        <input  name="coursename" placeholder="Course Name" class="form-control"  type="text">
+                        <input  name="name" placeholder="Course Name" class="form-control"  type="text">
                     </div>
                 </div>
             </div>
-
 
             <!--Department input-->
             <div class="form-group"> 
@@ -35,16 +46,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                         <select name="department" class="form-control selectpicker">
-                            <option>Select your Department/Office</option>
-                            <option value="COMPUTER SCIENCE AND ENGINEERING">COMPUTER SCIENCE AND ENGINEERING</option>
-                            <option value="Department of Agriculture">Department of Agriculture</option>
+                            <option>Select Department</option>
+                            <?php while ($row = $result->fetch_assoc()) { ?>                            
+                                <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
+                                <?php
+                            }
+                            ?>         
                         </select>
                     </div>
                 </div>
             </div>
 
-           
-            <!--Email input--> 
+            <!--Credit Hour input--> 
             <div class="form-group">
                 <label class="col-md-4 control-label">Credit Hour</label>  
                 <div class="col-md-4 inputGroupContainer">
@@ -72,3 +85,23 @@
         </fieldset>
     </form>
 </div>
+
+<?php
+if (isset($_POST['submit'])) {
+
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $department = $_POST['department'];
+    $credithour = $_POST['credithour'];
+
+    $query = "INSERT INTO `courselist`(`courseid`, `coursename`, `credithour`, `department`) VALUES ('$id','$name',$credithour,'$department')";
+    if ($conn->query($query) === TRUE) {
+        $_SESSION['link'] = 'viewcourses.php';
+        header('location:adminpanel.php');
+        echo '<script>alert("New record created successfully")</script>';
+    } else {
+        echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+    }
+    $conn->close();
+}
+?>
