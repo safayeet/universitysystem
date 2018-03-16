@@ -68,9 +68,7 @@
 <?php
 if (isset($_POST['submit'])) {
     require '../dbcon.php';
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+   
     $deptid = $_POST['departmentid'];
     $deptname = $_POST['departmentname'];
     $totalcourses = $_POST['totaltcourses'];

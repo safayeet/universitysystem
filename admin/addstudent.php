@@ -4,11 +4,7 @@ if (!isset($_SESSION))
     session_start();
 $_SESSION['link'] = "addstudent.php";
 
-
 require '../dbcon.php';
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $query = "select deptid,deptname from departments;";
 $result = $conn->query($query);
@@ -144,10 +140,6 @@ $result = $conn->query($query);
 <?php
 if (isset($_POST['submit'])) {
     require '../dbcon.php';
-// Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     $studentid = $_POST['id'];
     $name = $_POST['name'];

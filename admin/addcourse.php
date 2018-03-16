@@ -7,9 +7,6 @@ $_SESSION['link'] = "addcourse.php";
 
 
 require '../dbcon.php';
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
 
 $query = "select deptid,deptname from departments;";
 $result = $conn->query($query);

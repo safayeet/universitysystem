@@ -46,19 +46,15 @@ if (!empty($_SESSION['admin_login'])) {
         $password = $_POST['password'];
         require '../dbcon.php';
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            $query = "SELECT * FROM administration WHERE username='" . $username . "' and password='" . $password . "'";
-            $result = mysqli_query($conn, $query);
-            if (mysqli_num_rows($result) > 0) {
-                $_SESSION['admin_login'] = 1;
-                $_SESSION['user'] = $username;
-                mysqli_close($conn);
-                header('location:adminpanel.php');
-            } else
-                echo "user name and password not found<br>" . $username . "<br>" . $password;
-        }
+        $query = "SELECT * FROM administration WHERE username='" . $username . "' and password='" . $password . "'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            $_SESSION['admin_login'] = 1;
+            $_SESSION['user'] = $username;
+            mysqli_close($conn);
+            header('location:adminpanel.php');
+        } else
+            echo "user name and password not found<br>" . $username . "<br>" . $password;
     }
 }
 ?>

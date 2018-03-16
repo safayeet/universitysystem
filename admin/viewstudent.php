@@ -16,10 +16,7 @@
 
     <?php
     require '../dbcon.php';
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+    
     $query = "select * from studentdetails;";
     $result = $conn->query($query);
     while ($row = $result->fetch_assoc()) {
