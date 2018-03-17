@@ -1,3 +1,7 @@
+<script type="text/javascript">
+
+</script>
+
 <h1 class="text-center">Add / EDIT Offered Course Details</h1>
 
 <?php
@@ -33,6 +37,7 @@ $result = $conn->query($query);
 
             <!--Course Name input-->
             <div class="form-group">
+                
                 <label class="col-md-4 control-label">Course Name</label>  
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
