@@ -5,5 +5,8 @@
 11.03.2018
 1. index design modified
 2. chat included in admin panel
-13.03.2017
+13.03.2018
 1. modify database and finalize
+17.03.2018
+1. admin panel course offering complete
+2. NEXT teacher panel

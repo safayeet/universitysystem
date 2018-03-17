@@ -20,15 +20,7 @@ if (!empty($_SESSION['admin_login'])) {
                 <div class="form-group">
                     <label for="pwd">Password:</label>
                     <input type="password" name="password" class="form-control" id="pwd">
-                </div>
-
-                <!--                <div class="form-group">
-                                    <label for="role">User Role:</label>
-                                    <select class="form-control" id="role">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Admission Officer">Admission Officer</option>
-                                    </select>
-                                </div>-->
+                </div>               
 
                 <button type="submit" class="btn btn-success" name="submit">Submit</button>
 

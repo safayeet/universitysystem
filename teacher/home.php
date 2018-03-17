@@ -10,7 +10,7 @@ if (!empty($_SESSION['admin_login'])) {
     <div class="container-fluid">
         <div class="container jumbotron">
 
-            <h1 class="text-center">Admin Login Panel</h1>
+            <h1 class="text-center">Teacher Login Panel</h1>
             <form action="home.php" method="POST" >
                 <div class="form-group">
                     <label for="username">UserName:</label>
