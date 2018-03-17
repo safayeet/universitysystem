@@ -224,9 +224,36 @@ if (isset($_POST['submit'])) {
             VALUES ('$offeredid','$course',$semester,'$studentdept','$teacher')";
     if ($conn->query($query) === TRUE) {
         echo '<script>alert("New record created successfully")</script>';
+
+        //        create offered course table for course tracking attendance,marks 
+        $query = "CREATE TABLE IF NOT EXISTS " . $offeredid . " (
+  `studentid` INT NOT NULL,
+  `studentname` VARCHAR(45) NOT NULL,
+  `totalclass` INT NOT NULL DEFAULT 0,
+  `present` INT NOT NULL DEFAULT 0,
+  `absent` LONGTEXT NULL,
+  `assignment` FLOAT NOT NULL DEFAULT 0,
+  `first` FLOAT NOT NULL DEFAULT 0,
+  `mid` FLOAT NOT NULL DEFAULT 0,
+  `final` FLOAT NOT NULL DEFAULT 0,
+  `grade` FLOAT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`studentid`))
+ENGINE = InnoDB";
+        if ($conn->query($query) === TRUE) {
+            echo '<script>alert("New table created successfully")</script>';
+            $query = "insert into " . $offeredid . "(`studentid`,`studentname`) select id,name from studentdetails where department='$studentdept' and currentsemester='$semester' ORDER BY 'id' ASC";
+            if ($conn->query($query) === TRUE)
+                echo '<script>alert("students added to the section")</script>';
+            else
+                echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+        } else {
+            echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+        }
     } else {
         echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
     }
+
+
     $conn->close();
 }
 ?>
