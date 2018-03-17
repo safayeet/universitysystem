@@ -93,8 +93,6 @@ if (isset($_POST['submit'])) {
 
     $query = "INSERT INTO `courselist`(`courseid`, `coursename`, `credithour`, `department`) VALUES ('$id','$name',$credithour,'$department')";
     if ($conn->query($query) === TRUE) {
-        $_SESSION['link'] = 'viewcourses.php';
-        header('location:adminpanel.php');
         echo '<script>alert("New record created successfully")</script>';
     } else {
         echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';

@@ -77,8 +77,6 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO `departments`(`deptid`, `deptname`, `totalcourses`, `totalcredithour`)
             VALUES ('$deptid','$deptname',$totalcourses,$credithour)";
     if ($conn->query($sql) === TRUE) {
-        $_SESSION['link'] = 'viewdepartment.php';
-        header('location:adminpanel.php');
         echo '<script>alert("New record created successfully")</script>';
     } else {
 

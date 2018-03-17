@@ -162,9 +162,6 @@ if (isset($_POST['submit'])) {
 //        } else {
 //            echo '<script>alert("Failed to upload image")</script>';
 //        }
-
-        $_SESSION['link'] = 'viewstudent.php';
-        header('location:adminpanel.php');
         echo '<script>alert("New record created successfully")</script>';
     } else {
 

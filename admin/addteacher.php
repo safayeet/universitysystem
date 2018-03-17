@@ -163,8 +163,6 @@ if (isset($_POST['submit'])) {
     $sql = "INSERT INTO `teacherdetails`(`teacherid`, `password`, `name`, `location`, `contact`, `department`, `maxcredit`, `takencredit`, `position`)
 VALUES ('$teacherid','$password','$teachername','$location',$contact,'$deptid',$maxcredit,0,'$position')";
     if ($conn->query($sql) == TRUE) {
-        $_SESSION['link'] = 'viewteacher.php';
-        header('location:adminpanel.php');
         echo '<script>alert("New record created successfully")</script>';
     } else {
         echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
