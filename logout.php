@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!empty($_SESSION['admin_login'])) {
+if (!empty($_SESSION['role'])) {
     session_destroy();
     header('location: admin/home.php');
 } else {
