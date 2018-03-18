@@ -1,26 +1,47 @@
-<h1 class="text-center">Admin Panel Home page </h1>
+<?php if(!isset($_SESSION)) session_start(); ?>
+
+<h1 class="text-center">Teacher Panel </h1>
 <br>
+
+<?php
+require '../dbcon.php';
+$teacherid =$_SESSION['user'];
+$sql="select * from teacherdetails where teacherid ='$teacherid'";
+$result=$conn->query($sql);
+$row=$result->fetch_assoc();
+?>
 <table class="table table-responsive">
+    
     <tr>
-        <td>Total Students</td>
+        <td>Full Name </td>
         <td>:</td>
-        <td></td>
+        <td>         
+            <?php echo $row['name'];?>
+        </td>
     </tr>
     <tr>
-        <td>Total Departments</td>
+        <td>Designation </td>
         <td>:</td>
-        <td></td>
+        <td>         
+            <?php echo $row['position'];?>
+        </td>
     </tr>
     <tr>
-        <td>Active Students</td>
+        <td>Department </td>
         <td>:</td>
-        <td></td>
+        <td>         
+            <?php echo $row['department'];?>
+        </td>
     </tr>
     <tr>
-        <td>Students Under Suspension </td>
+        <td>Taken courses</td>
         <td>:</td>
-        <td></td>
+        <td>
+            
+            
+        </td>
     </tr>
+   
 </table>
 
 <?php 

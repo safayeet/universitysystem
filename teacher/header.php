@@ -27,7 +27,7 @@ and open the template in the editor.
                     <a class="navbar-brand" href="../index.php">UnivX</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li class=" "><a href="#">Home</a></li>
                     <li><a href="#">Our Campus</a></li>
                     <li><a href="#">Departments</a></li>
                     <li><a href="#">Facilities</a></li>

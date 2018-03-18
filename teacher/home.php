@@ -2,7 +2,9 @@
 require 'header.php';
 
 if (!empty($_SESSION['role'])) {
-    header('location:adminpanel.php');
+
+    $_SESSION['link'] = 'base.php';
+    header('location:teacherpanel.php');
 } else {
     ?>
 
@@ -49,13 +51,16 @@ if (!empty($_SESSION['role'])) {
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         } else {
-            $query = "SELECT * FROM administration WHERE username='" . $username . "' and password='" . $password . "'";
+            $query = "SELECT * FROM teacherdetails WHERE teacherid='" . $username . "' and password='" . $password . "'";
             $result = mysqli_query($conn, $query);
             if (mysqli_num_rows($result) > 0) {
-                $_SESSION['role'] = 1;
+                $_SESSION['role'] = 'teacher';
                 $_SESSION['user'] = $username;
+                $_SESSION['link'] = 'base.php';
+                
                 mysqli_close($conn);
-                header('location:adminpanel.php');
+                header('location:teacherpanel.php');
+                
             } else
                 echo "user name and password not found<br>" . $username . "<br>" . $password;
         }

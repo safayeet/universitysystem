@@ -16,11 +16,6 @@
         <td>:</td>
         <td></td>
     </tr>
-    <tr>
-        <td>Students Under Suspension </td>
-        <td>:</td>
-        <td></td>
-    </tr>
 </table>
 
 <?php 
