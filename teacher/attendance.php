@@ -30,18 +30,18 @@ if (isset($_POST['submit'])) {
 
         $totalclass[$cnt] ++;
         if ($attendance[$cnt] === 1) {
-            $present[$cnt] = intval($present[$cnt]) + 1;
+            $present[$cnt] ++;
         }
         echo $present[$cnt] . "<br>";
         echo $totalclass[$cnt] . "<br>";
 
-        $sql = "update '$offeredid' set totalclass='$totalclass[$cnt]', present='$present[$cnt]',
-          absent='$absent[$cnt]',lastupdate='$date' where studentid=$studentid";
-        if ($conn->query($sql) === TRUE) {
-            echo $studentid[$cnt] . " Attendance updated<br>";
-        } else {
-            echo $studentid[$cnt] . " Attendance update error<br>";
-        }
+//        $sql = "update '$offeredid' set totalclass='".$totalclass[$cnt]."', present='">$present[$cnt]."',
+//          absent='".$absent[$cnt]."',lastupdate='".$date."' where studentid='".$studentid."'";
+//        if ($conn->query($sql) === TRUE) {
+//            echo $studentid[$cnt] . " Attendance updated<br>";
+//        } else {
+//            echo $studentid[$cnt] . " Attendance update error<br>";
+//        }
     }
 } else {
     echo"not submitted <br>";
