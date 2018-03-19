@@ -6,6 +6,8 @@ if (!isset($_SESSION)) {
 }
 if (!isset($_SESSION['link'])) {
     $_SESSION['link'] = 'base.php';
+}else if(isset($_GET['link'])){
+     $_SESSION['link'] = $_GET['link'];
 }
 ?>
 
@@ -20,35 +22,12 @@ if (!isset($_SESSION['link'])) {
 <div class="row anti-row">
     <div class="col-sm-2" id="dashboard">
         <br>
-        <a href="adminpanel.php"><h2>DASHBOARD</h2></a><br>
+        <a href="teacherpanel.php"><h2>DASHBOARD</h2></a><br>
 
         <ul class="list-unstyled">
             <li class=""><a href="javascript:mylink('base.php')" class="btn btn-default btn-block">HOME</a></li>
-            <li class=""><a href="javascript:mylink('addteacher.php')" class="btn btn-default btn-block">Teacher</a></li>
-            <li class=""><a href="javascript:mylink('addstudent.php')" class="btn btn-default btn-block">Student</a></li>
-            <li class=""><a href="javascript:mylink('addcourse.php')" class="btn btn-default btn-block">Course</a></li>
-            <li class=""><a href="javascript:mylink('adddepartment.php')" class="btn btn-default btn-block">Department</a></li>
-            <li class=""><a href="javascript:mylink('offeredcourse.php')" class="btn btn-default btn-block">Course Offering</a></li>
+            <li class=""><a href="javascript:mylink('offeredcourses.php')" class="btn btn-default btn-block">Offered Courses</a></li>
             <li class=""><a href="javascript:mylink('../chat/index.php')" class="btn btn-default btn-block">Live Chat</a></li>
-            
-            <li class="">
-                <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" href="#collapse1">View Details</a>
-                            </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse">
-                            <a href="" class="panel-body">Student List</a>                        
-                            <a href="" class="panel-body">Teacher List</a>                        
-                            <a href="" class="panel-body">Department List</a>                        
-                            <a href="" class="panel-body">Course List</a>                        
-                            <a href="" class="panel-body">Offered Courses</a>                        
-                        </div>
-                    </div>
-                </div>                
-            </li>
         </ul>
     </div>
     <div class="col-sm-10" id="panelarea">
@@ -63,4 +42,4 @@ if (!isset($_SESSION['link'])) {
     }
 </script>
 
-<?php require'footer.php'; ?>
+<?php require'footer.php'; ?> 

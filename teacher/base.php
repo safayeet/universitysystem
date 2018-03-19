@@ -33,17 +33,9 @@ $row=$result->fetch_assoc();
             <?php echo $row['department'];?>
         </td>
     </tr>
-    <tr>
-        <td>Taken courses</td>
-        <td>:</td>
-        <td>
-            
-            
-        </td>
-    </tr>
-   
+       
 </table>
 
 <?php 
 
-if (!isset($_SESSION)){ session_start();}$_SESSION['link'] = "home.php" ?>
+if (!isset($_SESSION)){ session_start();}$_SESSION['link'] = "base.php" ?>

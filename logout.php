@@ -2,11 +2,11 @@
 
 session_start();
 
-if (!empty($_SESSION['role'])) {
+if (($_SESSION['role']==="admin")) {
     session_destroy();
     header('location: admin/home.php');
-} else {
+} else if (($_SESSION['role']==="teacher")) {
     session_destroy();
-    header('location: ../index.php');
+    header('location: teacher/home.php');
 }
 ?>
