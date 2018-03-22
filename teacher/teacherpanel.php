@@ -34,7 +34,7 @@ if (!isset($_SESSION['link'])) {
         <?php require $_SESSION['link']; ?>
     </div>
 </div>
-<script>
+<script type="text/javascript">
     function mylink(link) {
         $(document).ready(function () {
             $("#panelarea").load(link);
