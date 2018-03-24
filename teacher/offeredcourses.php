@@ -2,7 +2,8 @@
 //will start session if it's not started
 if (!isset($_SESSION))
     session_start();
-$offeredid = $_GET['of'];
+
+$_SESSION['link']="offeredcourses.php";
 
 //storing session variable user value in teacherid variable
 $teacherid = $_SESSION['user'];

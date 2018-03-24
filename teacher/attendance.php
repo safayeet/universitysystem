@@ -13,7 +13,6 @@ $date = date('m/d');
 
 if (isset($_POST['submit'])) {
     echo "today is " . $date . '<br>';
-
 //    array variable
     $studentid = $_POST['studentid']; //array accepted
     $totalclass = $_POST['totalclass']; //array accepted
@@ -21,27 +20,26 @@ if (isset($_POST['submit'])) {
     $absent = $_POST['absent']; //array accepted
     $attendance = $_POST['attendance']; //array accepted
     $counter = $_POST['count'];
-    print_r($present);
-    echo "<br>".$counter."<br>";
 
     for ($cnt = 0; $cnt < intval($counter); $cnt++) {
-        echo $present[$cnt] . "<br>";
-        echo $totalclass[$cnt] . "<br>";
-
         $totalclass[$cnt] ++;
-        if ($attendance[$cnt] === 1) {
-            $present[$cnt] ++;
+        if ($attendance[$cnt] === '1') {
+            $tmp = (int) $present[$cnt];
+            $present[$cnt] = $tmp + 1;
+        } else {
+            $absent[$cnt] = $absent[$cnt] . ',' . $date;
         }
-        echo $present[$cnt] . "<br>";
-        echo $totalclass[$cnt] . "<br>";
+        echo "<br>".$totalclass[$cnt]."<br>".$present[$cnt]."<br>".$absent[$cnt]."<br>".$date."<br>".$studentid[$cnt]."<br>";
 
-//        $sql = "update '$offeredid' set totalclass='".$totalclass[$cnt]."', present='">$present[$cnt]."',
-//          absent='".$absent[$cnt]."',lastupdate='".$date."' where studentid='".$studentid."'";
-//        if ($conn->query($sql) === TRUE) {
-//            echo $studentid[$cnt] . " Attendance updated<br>";
-//        } else {
-//            echo $studentid[$cnt] . " Attendance update error<br>";
-//        }
+        $sql = "update ".$offeredid." set totalclass='".$totalclass[$cnt]."', present='".$present[$cnt]."',            
+          absent='".$absent[$cnt]."',lastupdate='".$date."' where studentid='".$studentid[$cnt]."'";
+        if ($conn->query($sql) === TRUE) {
+            $_SESSION['link']="offeredcourses.php";
+            header("location:teacherpanel.php");
+            echo $studentid[$cnt] . " Attendance updated<br>";
+        } else {
+            echo $studentid[$cnt] . " Attendance update error<br>";
+        }
     }
 } else {
     echo"not submitted <br>";
@@ -82,7 +80,7 @@ if (isset($_POST['submit'])) {
                 }
                 ?>               
             </table>
-             <input style="display: none"  type="text" name="count" value="<?php echo $counter; ?>" >
+            <input style="display: none"  type="text" name="count" value="<?php echo $counter; ?>" >
             <input type="submit" name="submit" value="submit" style="float: right">
         </form>
     </div>
