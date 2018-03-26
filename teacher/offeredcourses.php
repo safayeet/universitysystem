@@ -18,10 +18,10 @@ require '../dbcon.php';
         <th>Offered (semester)</th>
         <th>Attendance</th>
         <th>Assignment</th>
-        <th>Mark Submit</th>        
+        <th>Mark Submit</th>
     </tr>
     <?php
-    $sql = "select * from offeredcourse";
+    $sql = "select * from offeredcourse where teacher = '$teacherid'";
     $result1 = $conn->query($sql);
     while ($row1 = $result1->fetch_assoc()) {
         ?>
@@ -29,10 +29,10 @@ require '../dbcon.php';
             <th><?php echo $row1['courseid']; ?></th>
             <th><?php echo $row1['department']; ?></th>
             <th><?php echo $row1['semester']; ?></th>
-
             <th><a href="attendance.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
+            <th><a href="assignment.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
+            <th><a href="result.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
         </tr>
     <?php } ?>
 
 </table>
-

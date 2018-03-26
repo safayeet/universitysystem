@@ -1,25 +1,29 @@
-<h1 class="text-center">Admin Panel Home page </h1>
+<h1 class="text-center">Student Panel Home page </h1>
 <br>
+
+<?php 
+if (!isset($_SESSION)) {
+    session_start();
+}
+require '../dbcon.php';
+$sql="Select * from studentdetails where id = '".$_SESSION['user']."'";
+if($conn->query($sql)){
+    $result=$conn->query($sql);
+$row=$result->fetch_assoc();
+}else {
+    echo $conn->error;
+}
+?>
 <table class="table table-responsive">
     <tr>
-        <td>Total Students</td>
+        <td>Student Name</td>
         <td>:</td>
-        <td></td>
+        <td><?php echo $row['name']?></td>
     </tr>
     <tr>
-        <td>Total Departments</td>
+        <td>Department</td>
         <td>:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Active Students</td>
-        <td>:</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Students Under Suspension </td>
-        <td>:</td>
-        <td></td>
+        <td><?php echo $row['department']?></td>
     </tr>
 </table>
 

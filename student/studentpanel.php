@@ -20,17 +20,13 @@ if (!isset($_SESSION['link'])) {
 <div class="row anti-row">
     <div class="col-sm-2" id="dashboard">
         <br>
-        <a href="adminpanel.php"><h2>DASHBOARD</h2></a><br>
+        <a href="studentpanel.php"><h2>DASHBOARD</h2></a><br>
 
         <ul class="list-unstyled">
             <li class=""><a href="javascript:mylink('base.php')" class="btn btn-default btn-block">HOME</a></li>
-            <li class=""><a href="javascript:mylink('addteacher.php')" class="btn btn-default btn-block">Teacher</a></li>
-            <li class=""><a href="javascript:mylink('addstudent.php')" class="btn btn-default btn-block">Student</a></li>
-            <li class=""><a href="javascript:mylink('addcourse.php')" class="btn btn-default btn-block">Course</a></li>
-            <li class=""><a href="javascript:mylink('adddepartment.php')" class="btn btn-default btn-block">Department</a></li>
-            <li class=""><a href="javascript:mylink('offeredcourse.php')" class="btn btn-default btn-block">Course Offering</a></li>
+            <li class=""><a href="javascript:mylink('courses.php')" class="btn btn-default btn-block">Courses</a></li>
             <li class=""><a href="javascript:mylink('../chat/index.php')" class="btn btn-default btn-block">Live Chat</a></li>
-            
+
             <li class="">
                 <div class="panel-group">
                     <div class="panel panel-default">
@@ -51,6 +47,7 @@ if (!isset($_SESSION['link'])) {
             </li>
         </ul>
     </div>
+
     <div class="col-sm-10" id="panelarea">
         <?php require $_SESSION['link']; ?>
     </div>

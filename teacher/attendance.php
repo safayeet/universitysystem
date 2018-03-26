@@ -12,7 +12,6 @@ $offeredid = $_GET['offerid'];
 $date = date('m/d');
 
 if (isset($_POST['submit'])) {
-    echo "today is " . $date . '<br>';
 //    array variable
     $studentid = $_POST['studentid']; //array accepted
     $totalclass = $_POST['totalclass']; //array accepted
@@ -31,7 +30,7 @@ if (isset($_POST['submit'])) {
         }
         echo "<br>".$totalclass[$cnt]."<br>".$present[$cnt]."<br>".$absent[$cnt]."<br>".$date."<br>".$studentid[$cnt]."<br>";
 
-        $sql = "update ".$offeredid." set totalclass='".$totalclass[$cnt]."', present='".$present[$cnt]."',            
+        $sql = "update ".$offeredid." set totalclass='".$totalclass[$cnt]."', present='".$present[$cnt]."',
           absent='".$absent[$cnt]."',lastupdate='".$date."' where studentid='".$studentid[$cnt]."'";
         if ($conn->query($sql) === TRUE) {
             $_SESSION['link']="offeredcourses.php";
@@ -42,7 +41,6 @@ if (isset($_POST['submit'])) {
         }
     }
 } else {
-    echo"not submitted <br>";
     $sql = "select * from $offeredid";
     $result = $conn->query($sql);
     ?>
@@ -65,9 +63,9 @@ if (isset($_POST['submit'])) {
                         <td><input  type='text' name='studentid[]' value='<?php echo $row['studentid']; ?>' ></td>
                         <td><?php echo $row['studentname']; ?></td>
                         <td>
-                            <select name="attendance[]" class="form-control selectpicker">     
+                            <select name="attendance[]" class="form-control selectpicker">
                                 <option value="1">1</option>
-                                <option value="0">0</option>           
+                                <option value="0">0</option>
                             </select>
                         </td>
                         <td style="display: none"> <input type='text' name='totalclass[]' value='<?php echo $row['totalclass']; ?>' ></td>
@@ -78,7 +76,7 @@ if (isset($_POST['submit'])) {
 
                     <?php
                 }
-                ?>               
+                ?>
             </table>
             <input style="display: none"  type="text" name="count" value="<?php echo $counter; ?>" >
             <input type="submit" name="submit" value="submit" style="float: right">

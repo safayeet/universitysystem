@@ -4,10 +4,10 @@ require'header.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-if (!isset($_SESSION['link'])) {
+if (isset($_GET['link'])) {
+    $_SESSION['link'] = $_GET['link'];
+} else if (!isset($_SESSION['link'])) {
     $_SESSION['link'] = 'base.php';
-}else if(isset($_GET['link'])){
-     $_SESSION['link'] = $_GET['link'];
 }
 ?>
 
@@ -19,6 +19,7 @@ if (!isset($_SESSION['link'])) {
     .navbar{margin-bottom: 0px;}
     .panel-default>.panel-heading+.panel-collapse>.panel-body {border-top-color: #fff;}
 </style>
+
 <div class="row anti-row">
     <div class="col-sm-2" id="dashboard">
         <br>
@@ -27,6 +28,7 @@ if (!isset($_SESSION['link'])) {
         <ul class="list-unstyled">
             <li class=""><a href="javascript:mylink('base.php')" class="btn btn-default btn-block">HOME</a></li>
             <li class=""><a href="javascript:mylink('offeredcourses.php')" class="btn btn-default btn-block">Offered Courses</a></li>
+            <li class=""><a href="javascript:mylink('../versitycalendar.php')" class="btn btn-default btn-block">Versity Calendar</a></li>
             <li class=""><a href="javascript:mylink('../chat/index.php')" class="btn btn-default btn-block">Live Chat</a></li>
         </ul>
     </div>
