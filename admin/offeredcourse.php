@@ -237,8 +237,11 @@ if (isset($_POST['submit'])) {
   `mid` FLOAT NOT NULL DEFAULT 0,
   `final` FLOAT NOT NULL DEFAULT 0,
   `grade` FLOAT NOT NULL DEFAULT 0,
+  `feedback` LONGTEXT NULL,
+  `assignmentlink` VARCHAR(45) NULL,
   PRIMARY KEY (`studentid`))
 ENGINE = InnoDB";
+
         if ($conn->query($query) === TRUE) {
             echo '<script>alert("New table created successfully")</script>';
             $query = "insert into " . $offeredid . "(`studentid`,`studentname`) select id,name from studentdetails where department='$studentdept' and currentsemester='$semester' ORDER BY 'id' ASC";

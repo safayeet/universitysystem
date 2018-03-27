@@ -17,7 +17,8 @@ require '../dbcon.php';
         <th>Offered (Department)</th>
         <th>Offered (semester)</th>
         <th>Attendance</th>
-        <th>Assignment</th>
+        <th>Set Assignment</th>
+        <th>View Assignment</th>
         <th>Mark Submit</th>
     </tr>
     <?php
@@ -31,6 +32,7 @@ require '../dbcon.php';
             <th><?php echo $row1['semester']; ?></th>
             <th><a href="attendance.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
             <th><a href="assignment.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
+            <th><a href="download.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
             <th><a href="result.php?offerid=<?php echo $row1['offerid'];?>" >click here</a></th>
         </tr>
     <?php } ?>

@@ -38,10 +38,14 @@ if (!empty($_SESSION['role'])) {
         require '../dbcon.php';
 
         $query = "SELECT * FROM studentdetails WHERE id='" . $username . "' and password='" . $password . "'";
-        $result = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query);   
         if (mysqli_num_rows($result) > 0) {
+           if( $row= mysqli_fetch_assoc($result)){
             $_SESSION['role'] = "student";
-            $_SESSION['user'] = $username;
+            $_SESSION['user'] = $row['id'];
+            $_SESSION['semester'] = $row['currentsemester'];
+            $_SESSION['department'] = $row['department'];
+           }
             mysqli_close($conn);
             header('location:studentpanel.php');
         } else

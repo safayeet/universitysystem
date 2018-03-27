@@ -12,7 +12,37 @@ $_SESSION['link'] = "result.php";
 $teacherid = $_SESSION['user'];
 //calling the dbcon files inside this file for fetching required configurations
 require '../dbcon.php';
-if (isset($_POST['submit'])) {
+if (isset($_POST['fsubmit'])) {
+    $studentid = $_POST['studentid'];
+    $assignment = $_POST['assignment'];
+    $first = $_POST['first'];
+    $mid = $_POST['mid'];
+    $final = $_POST['final'];
+    $totalclass = $_POST['totalclass'];
+    $present = $_POST['present'];
+    $cnt = $_POST['count'];
+
+    $sql = "update offeredcourse set resultstatus='1' where offerid = '$offeredid'";
+    if ($conn->query($sql)) {
+        echo 'Result Status Updated<br>';
+        for ($i = 0; $i < intval($cnt); $i++) {
+            $attendance = floatval($present[$i] / $totalclass[$i]) * .05;
+            $grade = $attendance + floatval($first[$i]) + floatval($final[$i]) + floatval($mid[$i]) + floatval($assignment[$i]);
+            $grade = ceil($grade);
+            $sql = "update $offeredid set grade = $grade where studentid = '$studentid[$i]'";
+            if($conn->query($sql)){
+                echo "grade updated";
+                
+                $_SESSION['link'] = "offeredcourses.php";
+            header("Refresh: 5; url=teacherpanel.php");
+            }else {
+                echo "grade not updated. Error ".$conn->error;
+            }
+        }
+    } else {
+        echo 'Result Status not Updated. Error ' . $conn->error;
+    }
+} else if (isset($_POST['submit'])) {
     $studentid = $_POST['studentid'];
     $assignment = $_POST['assignment'];
     $first = $_POST['first'];
@@ -68,7 +98,7 @@ $result = $conn->query($sql);
                 <th>100%</th>
             </tr>
         </table>
-        
+
         <p class="text-danger text-center">***<b>Please put the marks as the table</b>***</p>
     </div>
     <div class="col-sm-10">
@@ -98,7 +128,8 @@ $result = $conn->query($sql);
                         <td> <input type='text' name='mid[]' value='<?php echo $row['mid']; ?> ' ></td>
                         <td> <input  type='text' name='final[]' value="<?php echo $row['final']; ?>" ></td>
                     </tr>
-
+                    <td style="display: none"> <input type='text' name='totalclass[]' value='<?php echo $row['totalclass']; ?>' ></td>
+                    <td style="display: none"> <input type='text' name='present[]' value='<?php echo $row['present']; ?> ' ></td>
 
                     <?php
                 }

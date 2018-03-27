@@ -109,7 +109,7 @@ $result = $conn->query($query);
                     </div>
                 </div>
             </div>
-            
+
             <!--image upload
             <div class="form-group">
                 <label class="col-md-4 control-label">Profile Picture</label>  
@@ -162,6 +162,20 @@ if (isset($_POST['submit'])) {
 //        } else {
 //            echo '<script>alert("Failed to upload image")</script>';
 //        }
+
+        $sql = "CREATE TABLE IF NOT EXISTS $studentid (
+  `courseid` VARCHAR(15) NOT NULL,
+  `coursename` VARCHAR(45) NOT NULL,
+  `credit` TINYINT(1) NOT NULL,
+  `grade` TINYINT(1) NOT NULL,
+  `semester` TINYINT(1) NOT NULL,
+  `year` YEAR NOT NULL)
+    ENGINE = InnoDB";
+        if ($conn->query($sql) === TRUE) {
+            echo '<script>alert("New table created successfully")</script>';
+        } else {
+            echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+        }
         echo '<script>alert("New record created successfully")</script>';
     } else {
 
