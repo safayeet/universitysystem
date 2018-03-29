@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
             $sql = "update $offeredid set assignmentlink='$target' where studentid='$id'";
             if($conn->query($sql)) {
                 echo "<br>link stored";
-                header('refresh : 3;url=courses.php');
+                header('location:studentpanel.php');
             } else {
                 echo "<br>link update error ".$conn->error;
             }

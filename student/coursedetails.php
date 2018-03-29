@@ -31,7 +31,10 @@ $row = $result->fetch_assoc();
                 <td>Attendance</td>
                 <td> : </td>
                 <td><?php
+                if(floatval($row['totalclass'])>0){
                     $att = (floatval($row['present']) / floatval($row['totalclass'])) * .05;
+                }
+                else {$att=0;}
                     echo $att;
                     ?></td>
             </tr>
@@ -58,17 +61,19 @@ $row = $result->fetch_assoc();
             <tr>
                 <td>Total Classes</td>
                 <td>:</td>
-                <td><?php echo $row['totalclass'] ?></td>
+                <td><?php echo $row['totalclass']; ?></td>
             </tr>
             <tr>
                 <td>Present Classes</td>
                 <td>:</td>
-                <td><?php echo $row['present'] ?></td>
+                <td><?php echo $row['present']; ?></td>
             </tr>
             <tr>
                 <td>Absent Classes</td>
                 <td>:</td>
-                <td><?php echo $row['absent'] ?></td>
+                <td><?php                
+                echo $row['absent'];                
+                ?></td>
             </tr>
         </table>
     </div>

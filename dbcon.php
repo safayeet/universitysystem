@@ -2,7 +2,7 @@
 
 $dbName="universitysystem";
 $dbUser="root";
-$dbPass="1234";
+$dbPass="";
 $hostName="localhost";
 
 $conn = new mysqli($hostName, $dbUser, $dbPass, $dbName);

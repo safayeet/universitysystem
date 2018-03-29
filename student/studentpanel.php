@@ -24,6 +24,7 @@ if (!isset($_SESSION['link'])) {
             <li class=""><a href="javascript:mylink('base.php')" class="btn btn-default btn-block">HOME</a></li>
             <li class=""><a href="javascript:mylink('courses.php')" class="btn btn-default btn-block">Courses</a></li>
             <li class=""><a href="javascript:mylink('viewresult.php')" class="btn btn-default btn-block">View Result</a></li>
+            <li class=""><a href="javascript:mylink('versitycalendar.php')" class="btn btn-default btn-block">Versity Calendar</a></li>
             <li class=""><a href="javascript:mylink('../chat/index.php')" class="btn btn-default btn-block">Live Chat</a></li>
     </div>
 

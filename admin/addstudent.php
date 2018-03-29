@@ -28,7 +28,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input  name="name" placeholder="Full Name" class="form-control"  type="text">
+                        <input  name="name" placeholder="Full Name" class="form-control"  type="text" required>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        <select name="department" class="form-control selectpicker">
+                        <select name="department" class="form-control selectpicker" required>
                             <option>Select Department</option>
                             <?php while ($row = $result->fetch_assoc()) { ?>                            
                                 <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
@@ -55,7 +55,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input  name="id" placeholder="Student ID(Numeric value)" class="form-control"  type="text">
+                        <input  name="id" placeholder="Student ID(Numeric value)" class="form-control" pattern="[0-9]{8}" title="For spring(01),year(18),rest serial(4digit)" type="text" required>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input name="password" placeholder="Password (minimum 6 character )" class="form-control"  type="password">
+                        <input name="password" title="Password (minimum 4 character )" pattern="{4,}" class="form-control"  type="password" required>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+                        <input name="email" placeholder="E-Mail Address" class="form-control"  type="text" required>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@ $result = $conn->query($query);
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                        <input name="contact" placeholder="+880***********" class="form-control" type="tel">
+                        <input name="contact" title="880***********" pattern="[0-9]{13}" class="form-control" type="tel" required>
                     </div>
                 </div>
             </div>
@@ -94,8 +94,13 @@ $result = $conn->query($query);
                 <label class="col-md-4 control-label">Admission Semester</label>  
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                        <input name="semester" placeholder="Enter Semester" class="form-control" type="text">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
+                        <select name="semester" class="form-control selectpicker" required>
+                            <option>Select Admission Semester</option>                                                    
+                            <option value="1">Spring</option>
+                            <option value="2">Summer</option>
+                            <option value="3">Fall</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -104,25 +109,11 @@ $result = $conn->query($query);
                 <label class="col-md-4 control-label">Location</label>  
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                        <input name="location" placeholder="Home Dstrict" class="form-control" type="text">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                        <input name="location" placeholder="Home Dstrict" class="form-control" type="text" required>
                     </div>
                 </div>
             </div>
-
-            <!--image upload
-            <div class="form-group">
-                <label class="col-md-4 control-label">Profile Picture</label>  
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                        <input name="image" placeholder="Proile Picture" class="form-control" type="file">
-                    </div>
-                </div>
-            </div>-->
-
-            <!-- Success message -->
-            <!--<div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>-->
 
             <!-- Button -->
             <div class="form-group">
@@ -149,21 +140,13 @@ if (isset($_POST['submit'])) {
     $contact = $_POST['contact'];
     $year = date("Y");
     $semester = $_POST['semester'];
-//    $image = $_FILES['image']['name'];
-//    $target = "upload/" . basename($image);
-//    $sql = "INSERT INTO `studentdetails`(`id`, `password`, `name`, `location`, `contact`, `admissionyear`, `admissionsemester`, `currentsemester`, `cgpa`, 'imagename')
-//            VALUES ('$studentid', '$password', '$name', '$location', '$contact', '$year', '$semester','$semester', 0,'$image')";
-    $sql = "INSERT INTO `studentdetails`(`id`, `password`, `name`, `location`, `contact`, `admissionyear`, `admissionsemester`, `currentsemester`, `cgpa`)
-            VALUES ('$studentid', '$password', '$name', '$location', '$contact', '$year', '$semester',2, 0)";
+    $tablename = "s" . $studentid;
+
+    $sql = "INSERT INTO `universitysystem`.`studentdetails`(`id`, `password`, `name`, `location`, `contact`, `department`, `admissionyear`, `admissionsemester`, `currentsemester`, `cgpa`)
+            VALUES ('$studentid', '$password', '$name', '$location', '$contact','$department', '$year', '$semester',1, 0)";
     if ($conn->query($sql) === TRUE) {
-
-//        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-//            echo '<script>alert("Image uploaded successfully")</script>';
-//        } else {
-//            echo '<script>alert("Failed to upload image")</script>';
-//        }
-
-        $sql = "CREATE TABLE IF NOT EXISTS $studentid (
+        echo '<script>alert("New record created successfully")</script>';
+        $sql = "CREATE TABLE IF NOT EXISTS " . $tablename . " (
   `courseid` VARCHAR(15) NOT NULL,
   `coursename` VARCHAR(45) NOT NULL,
   `credit` TINYINT(1) NOT NULL,
@@ -176,7 +159,6 @@ if (isset($_POST['submit'])) {
         } else {
             echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
         }
-        echo '<script>alert("New record created successfully")</script>';
     } else {
 
         echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';

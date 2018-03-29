@@ -15,15 +15,21 @@ if ($conn->query($sql)) {
     echo $conn->error;
 }
 ?>
-<table class="table table-responsive">
-    <tr>
-        <td>Student Name</td>
-        <td>:</td>
-        <td><?php echo $row['name'] ?></td>
-    </tr>
-    <tr>
-        <td>Department</td>
-        <td>:</td>
-        <td><?php echo $row['department'] ?></td>
-    </tr>
-</table>
+<div class="col-sm-7">
+        <table class="table table-responsive">
+            <tr>
+                <td>Student Name</td>
+                <td>:</td>
+                <td><?php echo $row['name'] ?></td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>:</td>
+                <td><?php echo $row['department'] ?></td>
+            </tr>
+        </table>
+</div>
+<!--<div class="col-sm-4">
+        <h2>Teacher Notice</h2>
+        <h2>System Notice</h2>
+</div>-->

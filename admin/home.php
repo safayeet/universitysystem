@@ -1,7 +1,11 @@
 <?php
 require 'header.php';
 
-if (!empty($_SESSION['role'])) {
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+if ($_SESSION['role'] === "admin") {
     header('location:adminpanel.php');
 } else {
     ?>
@@ -44,6 +48,7 @@ if (!empty($_SESSION['role'])) {
             $_SESSION['role'] = "admin";
             $_SESSION['user'] = $username;
             mysqli_close($conn);
+
             header('location:adminpanel.php');
         } else
             echo "user name and password not found";

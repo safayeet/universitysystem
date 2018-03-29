@@ -27,8 +27,15 @@ and open the template in the editor.
                     <li><a href="#">Facilities</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">                    
-                    <li><a href="admin/home.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <?php if (empty($_SESSION['user'])) { ?>
+                        <li><a href="home.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>                        
+                    <?php } else { ?>
+                        <li><a href="../logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    <?php } ?>
+                        
+                        <li><a href="blog/"><span class="glyphicon glyphicon-blackboard"></span>BLOG</a></li>
                 </ul>
             </div>
         </nav>

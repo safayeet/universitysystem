@@ -12,9 +12,12 @@ if (isset($_POST['submit'])) {
     $assignment = $_POST['assignment'];
     $sql="insert into assignment (ofrid,assignment,lastsubmission,declarationdate) values ('$offeredid','$assignment','$date2','$date1')";
     if($conn->query($sql)){
-        echo "assignment updated successfully";
-        $sql="update offeredcourse set assignmentstatus='1'";
-         if($conn->query($sql)){echo "<br> assignment status updated";}else {
+//        echo "assignment updated successfully";
+        $sql="update offeredcourse set assignmentstatus='1' where teacher='".$_SESSION['user']."'";
+         if($conn->query($sql)){
+//             echo "<br> assignment status updated";
+            header("location:adminpanel.php");
+         }else {
         echo "there was an error".$conn->error;
     }
     }else {

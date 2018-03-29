@@ -78,7 +78,7 @@
 
 <?php
 if (!isset($_SESSION))
-    session_start();
+session_start();
 $_SESSION['link'] = "offeredcourse.php";
 require '../dbcon.php';
 ?>
@@ -98,9 +98,9 @@ require '../dbcon.php';
                             $query = "select deptid,deptname from departments;";
                             $result = $conn->query($query);
                             while ($row = $result->fetch_assoc()) {
-                                ?>                            
-                                <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
-                                <?php
+                            ?>                            
+                            <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
+                            <?php
                             }
                             ?>
                         </select>
@@ -157,9 +157,9 @@ require '../dbcon.php';
                             $query = "select deptid,deptname from departments;";
                             $result = $conn->query($query);
                             while ($row = $result->fetch_assoc()) {
-                                ?>                            
-                                <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
-                                <?php
+                            ?>                            
+                            <option value="<?php echo $row["deptid"]; ?>"><?php echo $row["deptname"]; ?></option>
+                            <?php
                             }
                             ?>
                         </select>
@@ -205,58 +205,62 @@ require '../dbcon.php';
 </div>
 <?php
 if (isset($_POST['submit'])) {
-    $course = $_POST['course'];
-    $teacher = $_POST['teacher'];
-    $studentdept = $_POST['studentdept'];
-    $semester = $_POST['semester'];
-    $offeredid = "ofr";
-    $query = "select count(offerid) from offeredcourse";
-    $result = $conn->query($query);
-    $result = $result->fetch_assoc();
-    $result = intval($result['count(offerid)']);
-    if ($result > 0) {
-        $result ++;
-        $offeredid .= $result;
-    } else {
-        $offeredid .= 1;
-    }
-    $query = "INSERT INTO `offeredcourse`( `offerid`, `courseid`, `semester`, `department`, `teacher`)
+$course = $_POST['course'];
+$teacher = $_POST['teacher'];
+$studentdept = $_POST['studentdept'];
+$semester = $_POST['semester'];
+$offeredid = "ofr";
+$query = "select count(offerid) from offeredcourse";
+$result = $conn->query($query);
+$result = $result->fetch_assoc();
+$result = intval($result['count(offerid)']);
+if ($result > 0) {
+$result ++;
+$offeredid .= $result;
+} else {
+$offeredid .= 1;
+}
+$query = "INSERT INTO `offeredcourse`( `offerid`, `courseid`, `semester`, `department`, `teacher`)
             VALUES ('$offeredid','$course',$semester,'$studentdept','$teacher')";
-    if ($conn->query($query) === TRUE) {
-        echo '<script>alert("New record created successfully")</script>';
+if ($conn->query($query) === TRUE) {
+echo '<script>alert("New record created successfully")</script>';
 
-        //        create offered course table for course tracking attendance,marks 
-        $query = "CREATE TABLE IF NOT EXISTS " . $offeredid . " (
-  `studentid` INT NOT NULL,
-  `studentname` VARCHAR(45) NOT NULL,
-  `totalclass` INT NOT NULL DEFAULT 0,
-  `present` INT NOT NULL DEFAULT 0,
-  `absent` LONGTEXT NULL,
-  `assignment` FLOAT NOT NULL DEFAULT 0,
-  `first` FLOAT NOT NULL DEFAULT 0,
-  `mid` FLOAT NOT NULL DEFAULT 0,
-  `final` FLOAT NOT NULL DEFAULT 0,
-  `grade` FLOAT NOT NULL DEFAULT 0,
-  `feedback` LONGTEXT NULL,
-  `assignmentlink` VARCHAR(45) NULL,
-  PRIMARY KEY (`studentid`))
+//        create offered course table for course tracking attendance,marks 
+$query = "CREATE TABLE IF NOT EXISTS " . $offeredid . " (
+  `studentid` int(11) NOT NULL,
+  `studentname` varchar(45) NOT NULL,
+  `totalclass` int(11) NOT NULL DEFAULT '0',
+  `present` int(11) NOT NULL DEFAULT '0',
+  `absent` longtext,
+  `lastupdate` varchar(15) NOT NULL,
+  `assignment` float NOT NULL DEFAULT '0',
+  `first` float NOT NULL DEFAULT '0',
+  `mid` float NOT NULL DEFAULT '0',
+  `final` float NOT NULL DEFAULT '0',
+  `grade` float NOT NULL DEFAULT '0',
+  `feedback` longtext NOT NULL DEFAULT '',
+  `assignmentlink` varchar(45) DEFAULT NULL)
 ENGINE = InnoDB";
 
-        if ($conn->query($query) === TRUE) {
-            echo '<script>alert("New table created successfully")</script>';
-            $query = "insert into " . $offeredid . "(`studentid`,`studentname`) select id,name from studentdetails where department='$studentdept' and currentsemester='$semester' ORDER BY 'id' ASC";
-            if ($conn->query($query) === TRUE)
-                echo '<script>alert("students added to the section")</script>';
-            else
-                echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
-        } else {
-            echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
-        }
-    } else {
-        echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
-    }
+if ($conn->query($query) === TRUE) {
+echo '<script>alert("New table created successfully")</script>';
+$query = "insert into " . $offeredid . "(`studentid`,`studentname`) select id,name from studentdetails where department='$studentdept' and currentsemester='$semester' ORDER BY 'id' ASC";
+if ($conn->query($query) === TRUE){
+echo '<script>alert("students added to the section")</script>';
 
 
-    $conn->close();
+}
+else{
+echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+}
+} else {
+echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+}
+} else {
+echo '<script>alert("Error: ' . $sql . '<br>' . $conn->error . '")</script>';
+}
+
+
+$conn->close();
 }
 ?>

@@ -28,7 +28,7 @@ if (isset($_GET['link'])) {
         <ul class="list-unstyled">
             <li class=""><a href="javascript:mylink('base.php')" class="btn btn-default btn-block">HOME</a></li>
             <li class=""><a href="javascript:mylink('offeredcourses.php')" class="btn btn-default btn-block">Offered Courses</a></li>
-            <li class=""><a href="javascript:mylink('../versitycalendar.php')" class="btn btn-default btn-block">Versity Calendar</a></li>
+            <li class=""><a href="javascript:mylink('versitycalendar.php')" class="btn btn-default btn-block">Versity Calendar</a></li>
             <li class=""><a href="javascript:mylink('../chat/index.php')" class="btn btn-default btn-block">Live Chat</a></li>
         </ul>
     </div>

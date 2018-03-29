@@ -26,7 +26,10 @@ if (isset($_POST['fsubmit'])) {
     if ($conn->query($sql)) {
         echo 'Result Status Updated<br>';
         for ($i = 0; $i < intval($cnt); $i++) {
+            if($totalclass[$i]>0)
             $attendance = floatval($present[$i] / $totalclass[$i]) * .05;
+            else $attendance=0;
+            
             $grade = $attendance + floatval($first[$i]) + floatval($final[$i]) + floatval($mid[$i]) + floatval($assignment[$i]);
             $grade = ceil($grade);
             $sql = "update $offeredid set grade = $grade where studentid = '$studentid[$i]'";

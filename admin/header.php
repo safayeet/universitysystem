@@ -37,15 +37,15 @@ and open the template in the editor.
                     <li><a href="#">Facilities</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
-                <?php if (empty($_SESSION['user'])) { ?>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    </ul>                
-                <?php } else { ?>
-                    <ul class="nav navbar-nav navbar-right">                    
+                <ul class="nav navbar-nav navbar-right">
+                    <?php if (empty($_SESSION['user'])) { ?>
+                        <li><a href="home.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>                        
+                    <?php } else { ?>
                         <li><a href="../logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-                    </ul>   
-                <?php } ?>
+                    <?php } ?>
+                        
+                        <li><a href="../blog/index.php"><span class="glyphicon glyphicon-blackboard"></span>BLOG</a></li>
+                </ul>
             </div>
         </nav>
 

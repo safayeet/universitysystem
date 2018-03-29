@@ -1,6 +1,5 @@
 <?php
 require 'header.php';
-
 if (!empty($_SESSION['role'])) {
 
     $_SESSION['link'] = 'base.php';
