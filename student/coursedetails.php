@@ -1,11 +1,19 @@
 <?php
+
 require 'header.php';
-//will start session if it's not started
-if (!isset($_SESSION))
-    session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
+//        echo"<script>alert('You must login as a Teacher to access.You will be redirected to your " . $_SESSION['link'] . " panel within 5 seconds');</script>";
+    if (!empty($_SESSION['role'])) {
+        if ($_SESSION['role'] === 'teacher')
+            header("location:../teacher/home.php");
+        else if ($_SESSION['role'] === 'admin')
+            header("location:../admin/home.php");
+    }else{
+        header("location:../index.php");
+    }
+}
+require '../dbcon.php';
 
-
-$dept = $_SESSION['department'];
 $semester = $_SESSION['semester'];
 $offeredid = $_GET['offerid'];
 //storing session variable user value in teacherid variable

@@ -10,6 +10,7 @@ if ($_POST['serial'] === '1') {
     $result = $conn->query($query);
     echo '<option value="">Select Teacher</option>';
     while ($row = $result->fetch_assoc()) {
+        $sql="";
         echo "<option value='" . $row['teacherid'] . "'>" . $row['name'] . "</option>";
     }
     $conn->close();

@@ -1,13 +1,14 @@
 <?php
 require 'header.php';
-if (!empty($_SESSION['role'])) {
-
-    $_SESSION['link'] = 'base.php';
-    header('location:teacherpanel.php');
-} else {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'teacher') {
+//        echo"<script>alert('You must login as a Teacher to access.You will be redirected to your " . $_SESSION['link'] . " panel within 5 seconds');</script>";
+    if (!empty($_SESSION['role'])) {
+        if ($_SESSION['role'] === 'student')
+            header("location:../student/home.php");
+        else if ($_SESSION['role'] === 'admin')
+            header("location:../admin/home.php");
+    }
     ?>
-
-
     <div class="container-fluid">
         <div class="container jumbotron">
 
@@ -23,21 +24,11 @@ if (!empty($_SESSION['role'])) {
                     <input type="password" name="password" class="form-control" id="pwd">
                 </div>
 
-                <!--                <div class="form-group">
-                                    <label for="role">User Role:</label>
-                                    <select class="form-control" id="role">
-                                        <option value="Admin">Admin</option>
-                                        <option value="Admission Officer">Admission Officer</option>
-                                    </select>
-                                </div>-->
-
                 <button type="submit" class="btn btn-success" name="submit">Submit</button>
 
             </form>
         </div>
     </div>
-
-
     <br>
     <br>
     <br>
@@ -55,15 +46,17 @@ if (!empty($_SESSION['role'])) {
             if (mysqli_num_rows($result) > 0) {
                 $_SESSION['role'] = 'teacher';
                 $_SESSION['user'] = $username;
-                $_SESSION['link'] = 'base.php';
-                
                 mysqli_close($conn);
+                echo '<script>alert("Logged In Successfully");(</script>';
                 header('location:teacherpanel.php');
-                
             } else
                 echo "user name and password not found<br>" . $username . "<br>" . $password;
         }
     }
+    ?>
+    <?php
+    require 'footer.php';
+}else {
+    header('location:teacherpanel.php');
 }
 ?>
-<?php require 'footer.php'; ?>

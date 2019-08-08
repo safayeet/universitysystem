@@ -2,7 +2,7 @@
 
 session_start();
 
-if (($_SESSION['role']==="admin")) {
+if (($_SESSION['role']==="admin" || $_SESSION['role']==="admission" )) {
     session_destroy();
     header('location: admin/home.php');
 } else if (($_SESSION['role']==="teacher")) {

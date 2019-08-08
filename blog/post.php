@@ -25,7 +25,7 @@ if (!isset($_GET['postid'])) {
         </style>
         <script>
             function comment() {
-//                alert(document.getElementById("comment").value + " " + document.getElementById("postid").value);
+        //                alert(document.getElementById("comment").value + " " + document.getElementById("postid").value);
                 $.ajax({
                     type: 'get',
                     url: 'ajaxblog.php',
@@ -59,47 +59,46 @@ if (!isset($_GET['postid'])) {
                 </div>
 
                 <div class="row">
-                    <textarea class="form-control" id="comment" <?php if (isset($_SESSION['user']) & $row['allowcomment'] === '1') echo "disabled";?>>
-                                            
-                    </textarea>
-                    <br>
-                    <?php if (isset($_SESSION['user']) & $row['allowcomment'] === '1') { ?>
-                        <a class="btn btn-info" href="javascript:comment()" >Comment</a>
-                        <a class="btn btn-info" href="post.php?postid=<?php echo $postid; ?>&stop=0" >Stop Comment</a>
+                    <textarea class="form-control" id="comment" <?php if (!isset($_SESSION['user']) || $row['allowcomment'] === '0') echo "disabled"; ?>></textarea>
 
-                    <?php } ?>
-                    <br>
-                    <br>
+                   <!--<textarea class="form-control" id="comment" <?php if (isset($_SESSION['user']) & $row['allowcomment'] === '1') echo "disabled"; ?>> </textarea>-->
+                        <br>
+                        <?php if (isset($_SESSION['user']) & $row['allowcomment'] === '1') { ?>
+                            <a class="btn btn-info" href="javascript:comment()" >Comment</a>
+                            <a class="btn btn-info" href="post.php?postid=<?php echo $postid; ?>&stop=0" >Stop Comment</a>
+                        <?php } ?>
+                        <br>
+                        <br>
+                        </div>
+
+                        <div class="row">
+                            <table class="table table-responsive"  id="commentarea">
+
+                            </table>
+                        </div>
                 </div>
 
-                <div class="row">
-                    <table class="table table-responsive"  id="commentarea">
-
-                    </table>
-                </div>
-            </div>
-
-            <div class="col-sm-4">
-                <h3>Old Posts</h3>
-                <ul class="list-group">
-                    <?php
-                    $sql = "select postid,posttitle from blogpost order by sl";
-                    $p = $conn->query($sql);
-                    while ($row = $p->fetch_array()) {
-                        ?>
-                        <li><a href="post.php?postid=<?php echo $row[0]; ?>"><?php echo $row[1]; ?></a></li>
+                <div class="col-sm-4">
+                    <h3>Old Posts</h3>
+                    <ul class="list-group">
                         <?php
-                    }
-                    ?>
-                </ul>
+                        $sql = "select postid,posttitle from blogpost order by sl";
+                        $p = $conn->query($sql);
+                        while ($row = $p->fetch_array()) {
+                            ?>
+                            <li><a href="post.php?postid=<?php echo $row[0]; ?>"><?php echo $row[1]; ?></a></li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
             </div>
-        </div>
 
 
-        <?php
-    } else {
-        echo "error in sql <br>" . $conn->error;
+            <?php
+        } else {
+            echo "error in sql <br>" . $conn->error;
+        }
+        require 'footer.php';
     }
-    require 'footer.php';
-}
-?>
+    ?>

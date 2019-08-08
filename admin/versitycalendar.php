@@ -1,14 +1,13 @@
 
 <?php
+require 'header.php';
 require '../dbcon.php';
 if (!isset($_SESSION)) {
     session_start();
 }
-if ($_SESSION['role'] !== "admin") {
+if ($_SESSION['role'] !== "admin" && $_SESSION['role']!=='admission') {
     header('location:home.php');
 } else {
-    $_SESSION['link'] = 'versitycalendar.php';
-
 //    inserting new data in db
     if (isset($_GET['submit'])) {
 //         echo "entered insert section<br>";
@@ -30,26 +29,34 @@ if ($_SESSION['role'] !== "admin") {
             echo "<script>alert('New Occasion enetered')</script>";
 
             $message = "Dear, you have an occasion on " . $date;
-            if ($vacation === 1)
+            if ($vacation == 1)
                 $message = $message . ". Classes will be dismissed.";
             else
                 $message = $message . ". Classes will be held.";
-            if ($function === 1)
+            if ($function == 1)
                 $message = $message . " A function will be organized where you are invited";
             else
                 $message = $message . " No function will be organized by the authority";
 //            echo $message . " " . $date."<br>";
 //            $date = ;
-            echo $message . " " . $date;
-            $sql = "insert into 'universitysystem'.'notice' ('noticeto','noticefrom','message','noticedate','destroydate') values ('everyone','system','$message','$date','".date('m/d', strtotime($date))."')";
+//            echo $message . " on " . $date;
+            $date=date('m/d', strtotime($date));
+            $destroy=date('m/d',strtotime($date.'+7 days'));
+            echo "<script>alert('".$message . " on " . $date."  will be destroyed on" .$destroy."')</script>";
+            $sql = "INSERT INTO `notice`( `noticeto`, `noticefrom`, `message`, `noticedate`, `destroydate`)
+                   VALUES ('everyone','system','$message','$date','$destroy')";
+            
 
             if ($conn->query($sql)) {
                 echo "<script>alert('New notice enetered " . $message . "')</script>";
             } else {
-                echo "<script>alert('Error occured in inserting the notive " . $message . " at " . $date . " <br>" . $conn->error . "')</script>";
-            }
+                echo "<script>alert('Error occured in inserting the notive " . $message . " at " . $date . " <br>" 
+                        . $conn->error . "')</script>";
+            } echo "<script>alert('" . $conn->error . "')</script>";
+           
         } else {
-            echo "<script>alert('Error occured in inserting the occasion " . $occasion . " at " . $date . " <br>" . $conn->error . "')</script>";
+            echo "<script>alert('Error occured in inserting the occasion " . $occasion . " at " . $date . " <br>" 
+                    . $conn->error . "')</script>";
         }
     }
 //    deleting data from db
@@ -154,9 +161,11 @@ if ($_SESSION['role'] !== "admin") {
                 <!--form for inserting new occasion--> 
             <?php } else { ?>
                 <br>
-                <br>            
+                <br>
+                <?php if($_SESSION['role']==='admin' || $_SESSION['role']==='admission'){?>
                 <button class="btn btn-lg btn-info" id="addnew">Add new occation</button>
                 <button class="btn btn-lg btn-danger" id="cancel">Cancel</button>
+                <?php }?>
                 <br>
                 <br>
                 <form class="form-group" id="new" action="" method="get">
@@ -173,7 +182,7 @@ if ($_SESSION['role'] !== "admin") {
                             <th>Action</th>                        
                         </tr>
                         <tr>
-                            <td><input type="date" name="date" required></td>
+                            <td><input type="date" name="date" min="<?php echo date("Y-m-d");?>" required></td>
                             <td><input type="text" name="occasion" pattern="[A-Z a-z]{5,70}" size="70" 
                                        title="Please Write the proper occasion within 5 to 70 character(A~Z,a-z, whitespace)" required></td>
                             <td> <select name="vacation" required>
@@ -232,8 +241,8 @@ if ($_SESSION['role'] !== "admin") {
                             ?>
                         </th>                     
                         <th>
-                            <a class="btn btn-warning" href="adminpanel.php?update=<?php echo $row['id'] ?>">UPDATE</a>
-                            <a class="btn btn-danger" href="adminpanel.php?delete=<?php echo $row['id'] ?>">DELETE</a>
+                            <a class="btn btn-warning" href="versitycalendar.php?update=<?php echo $row['id'] ?>">UPDATE</a>
+                            <a class="btn btn-danger" href="versitycalendar.php?delete=<?php echo $row['id'] ?>">DELETE</a>
                         </th>                     
                     </tr>
                 <?php } ?>

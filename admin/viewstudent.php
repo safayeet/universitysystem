@@ -1,8 +1,13 @@
 <?php
-
-if(!isset($_SESSION))session_start ();
-$_SESSION['link']='viewstudent.php';
-require '../dbcon.php';
+   if (!isset($_SESSION)) {
+        session_start();
+    }
+if ($_SESSION['role'] !== "admin" && $_SESSION['role'] !== "admission") {
+    header('location:home.php');
+} else {
+ 
+    require'header.php';
+    require '../dbcon.php';;
 
 if(isset($_GET['delid'])){
     $studentid=$_GET['delid'];
@@ -17,19 +22,20 @@ if(isset($_GET['delid'])){
         echo"<script>alert('student not deleted".$conn->error."')</script>";
 }
 ?>
-<br><br>
-<table class="table">
+<div class="container">
+    <h2 class="text-center">Student's List</h2>
+<table class="table table-responsive">
     <tr>
-        <td>ID</td>
-        <td>Password</td>
-        <td>Studet Name</td>
-        <td>Location</td>
-        <td>Contact</td>
-        <td>Admission Year</td>
-        <td>Admission Semester</td>
-        <td>Current Semester</td>
-        <td>CGPA</td>
-        <td>Action</td>
+        <th>ID</th>
+        <th>Password</th>
+        <th>Studet Name</th>
+        <th>Location</th>
+        <th>Contact</th>
+        <th>Admission Year</th>
+        <th>Admission Semester</th>
+        <th>Current Semester</th>
+        <th>CGPA</th>
+        <th>Action</th>
     </tr>
 
 
@@ -49,8 +55,8 @@ if(isset($_GET['delid'])){
             <td><?php echo $row['admissionyear']; ?></td>
             <td><?php echo $row['admissionsemester']; ?></td>
             <td><?php echo $row['currentsemester']; ?></td> 
-            <td><?php echo $row['cgpa']; ?></td> 
-            <td><a class="btn btn-danger" href="adminpanel.php?delid=<?php echo $row['id']; ?>">Delete Student</a></td> 
+            <td><?php echo $row['sgpa']; ?></td> 
+            <td><a class="btn btn-danger" href="viewstudent.php?delid=<?php echo $row['id']; ?>">Delete Student</a></td> 
         </tr>
 
         <?php
@@ -58,4 +64,9 @@ if(isset($_GET['delid'])){
     ?>
 
 </table>
+</div>
 
+<?php 
+ require 'footer.php';
+}
+?>

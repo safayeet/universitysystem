@@ -1,15 +1,22 @@
 <?php
-require 'header.php';
-
+//check if session is started if not session will be started
 if (!isset($_SESSION)) {
     session_start();
 }
+$b = TRUE;
 
-if ($_SESSION['role'] === "admin") {
-    header('location:adminpanel.php');
-} else {
+//check if there is any value in $_SESSION['role'] 
+if (isset($_SESSION['role'])) {
+//    check the user role
+    if ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== "admission") {
+        $b = TRUE;
+    } else {
+        header('location:adminpanel.php');
+    }
+}
+if ($b) {
+    require 'header.php';
     ?>
-
 
     <div class="container-fluid">
         <div class="container jumbotron">
@@ -32,27 +39,29 @@ if ($_SESSION['role'] === "admin") {
         </div>
     </div>
 
-
     <br>
     <br>
     <br>
     <?php
     if (isset($_POST['submit'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
         require '../dbcon.php';
 
         $query = "SELECT * FROM administration WHERE username='" . $username . "' and password='" . $password . "'";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) {
-            $_SESSION['role'] = "admin";
+            $row = mysqli_fetch_assoc($result);
+            $_SESSION['role'] = $row['role'];
             $_SESSION['user'] = $username;
             mysqli_close($conn);
-
+            echo '<script>alert("Logged In Successfully");(</script>';
             header('location:adminpanel.php');
         } else
-            echo "user name and password not found";
+            echo "<script>alert('user name and password not found')</script>";
     }
+    ?>
+    <?php
+    require 'footer.php';
 }
 ?>
-<?php require 'footer.php'; ?>
